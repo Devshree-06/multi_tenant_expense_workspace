@@ -1,9 +1,11 @@
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
+from fastapi.types import DependencyCacheKey
+from jose import JWTError, jwt
 from datetime import timedelta,datetime
+from fastapi import Depends, HTTPException
+from app.config import SECRET_KEY
 
-
-Secret_key = "224f56ba31aa8e0658ac03ecaff99dce3d49b3ceb9d1c6336d00b05c5b375f0a"
+Secret_key = SECRET_KEY
 Token_expire_time = 30
 algo = "HS256"
 
@@ -26,4 +28,26 @@ def create_token(data: dict):
     )
 
     return token
+
+def verify_token(token:str=Depends(oauth_scheme)):
+
+    try:
+          payload = jwt.decode(token,Secret_key,algorithms=[algo])
+
+          user_id = payload.get("sub")
+
+          if user_id is None:
+               raise HTTPException(
+                    status_code=401,
+                    details="Invalid Token"
+               )
+          return int(user_id)
     
+    except Exception as e:
+         print("JWT ERROR : ",e)
+
+         raise HTTPException(
+              status_code = 401,
+              detail=str(e)
+         )
+

@@ -5,6 +5,9 @@ from app.db.database import getDb
 from app.service.sign_in_user_service import sign_in_users
 from app.schemas.login_user_req import Userlogin
 from app.service.user_login_service import loginUserTokenGeneration
+from app.schemas.user_role_request import UserRoleReq
+from app.auth import verify_token
+from app.service.workspace_user_access_service import assign_workspace_user_role
 
 
 
@@ -18,3 +21,9 @@ def signUpUsers(user: UserSignInReq,db: Session=Depends(getDb)):
 @router.post("/login")
 def login(login: Userlogin,db: Session=Depends(getDb)):
     return loginUserTokenGeneration(login,db)
+
+
+@router.post("/workspace_user_role_access")
+def user_role_assign(role: UserRoleReq,db:Session=Depends(getDb),token:int=Depends(verify_token)):
+    return assign_workspace_user_role(role,db,token)
+

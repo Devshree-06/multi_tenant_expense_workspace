@@ -1,4 +1,4 @@
-from app.models.sign_in_user_model import UserSignIn
+from app.models.user_details_model import UserSignIn
 from app.schemas.sign_in_user_schema import UserSignInReq
 from sqlalchemy.orm import Session
 from app.schemas.sign_in_user_resp import SignInUserResponse

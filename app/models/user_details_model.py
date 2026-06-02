@@ -10,4 +10,6 @@ class UserSignIn(Base):
     name = Column(String(200))
     email = Column(String(200),index=True)
     password = Column(String(200))
+    role = Column(String(200))
+    
 

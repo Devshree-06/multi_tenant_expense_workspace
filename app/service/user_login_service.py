@@ -6,7 +6,7 @@ from rsa import verify
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from app.db.database import getDb
-from app.models.sign_in_user_model import UserSignIn
+from app.models.user_details_model import UserSignIn
 from app.schemas.sign_in_user_resp import SignInUserResponse
 from app.auth import create_token
 from app.utils import verify_password
@@ -36,7 +36,7 @@ def loginUserTokenGeneration(user: Userlogin,db:Session=Depends(getDb)):
         )
 
     token = create_token(
-        data = {"sub" : existing_user.email}
+        data = {"sub" : str(existing_user.id)}
     )
 
     return {"msg": "Token created successfully","access_token" : token}
