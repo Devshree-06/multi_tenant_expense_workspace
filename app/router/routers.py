@@ -1,3 +1,5 @@
+from webbrowser import get
+
 from fastapi import Depends,APIRouter
 from sqlalchemy.orm import Session
 from app.schemas.sign_in_user_schema import UserSignInReq
@@ -8,6 +10,8 @@ from app.service.user_login_service import loginUserTokenGeneration
 from app.schemas.user_role_request import UserRoleReq
 from app.auth import verify_token
 from app.service.workspace_user_access_service import assign_workspace_user_role
+from app.schemas.workspaceCreate import WorkspaceCreateReq
+from app.service.workspace_create_service import create_workspace
 
 
 
@@ -26,4 +30,9 @@ def login(login: Userlogin,db: Session=Depends(getDb)):
 @router.post("/workspace_user_role_access")
 def user_role_assign(role: UserRoleReq,db:Session=Depends(getDb),token:int=Depends(verify_token)):
     return assign_workspace_user_role(role,db,token)
+
+
+@router.post("/create_workspace")
+def workspace_creation(req: WorkspaceCreateReq,db:Session=Depends(getDb),user_id:int=Depends(verify_token)):
+    return create_workspace(req,db,user_id)
 
