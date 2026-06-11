@@ -27,5 +27,7 @@ def assign_workspace_user_role(user: UserRoleReq,db:Session=Depends(getDb),user_
         return "User has Owner Access. Please proceed with workspace creation"
     
     else:
-        return "Only Owners can create workspace. Please try again"
+        check_user_exists.role = user.access_type
+        db.commit()
+        return "Member/Guest User."
 
