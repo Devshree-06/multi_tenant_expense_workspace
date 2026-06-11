@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.schemas.sign_in_user_schema import UserSignInReq
 from app.db.database import getDb
+from app.service import workspace_accept_invite
 from app.service.email_service import send_invite_by_email
 from app.service.sign_in_user_service import sign_in_users
 from app.schemas.login_user_req import Userlogin
@@ -17,6 +18,7 @@ from app.schemas.workspaceCreate import WorkspaceCreateReq
 from app.service.workspace_create_service import create_workspace
 from app.schemas.user_invite_request import UserInviteRequest
 from app.service.user_invite_service import workspace_user_invite
+from app.service.workspace_accept_invite import accept_invite
 
 
 
@@ -48,6 +50,11 @@ def workspace_creation(req: WorkspaceCreateReq,db:Session=Depends(getDb),user_id
 async def sent_invite(req: UserInviteRequest, workspace_id: int,db: Session=Depends(getDb),user:int=Depends(verify_token)):
 
     return await workspace_user_invite(req,workspace_id,db,user)
+
+
+@router.post("/accept_invite/{invite_token}")
+def member_invite(invite_token:str,db:Session=Depends(getDb),user:int=Depends(verify_token)):
+    return accept_invite(invite_token,db,user)
 
 # class TestEmail(BaseModel):
 #     email: str
