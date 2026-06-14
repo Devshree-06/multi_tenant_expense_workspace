@@ -28,6 +28,7 @@ router = APIRouter(
 
 @router.post("/signIn")
 def signUpUsers(user: UserSignInReq,db: Session=Depends(getDb)):
+    print("Calling Sign In API")
     return sign_in_users(user,db)
 
 

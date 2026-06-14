@@ -22,6 +22,8 @@ def sign_in_users(user: UserSignInReq,db: Session):
     db.commit()
     db.refresh(sign_in_user)
 
+    print("User is added to db for sign in")
+
     return SignInUserResponse(
         status = "Success",
         status_code= 200,

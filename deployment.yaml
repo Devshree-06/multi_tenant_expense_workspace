@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: multitenant-expense
+  namespace: uat
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: multitenant-expense
+
+  template:
+    metadata:
+      labels:
+        app: multitenant-expense
+
+    spec:
+      containers:
+        - name: multitenant-expense
+          image: devshree06/multitenant-expense:v1
+          imagePullPolicy: Always
+
+          env:
+            - name: DATABASE_URL
+              value: "mysql+pymysql://root:Dev%401234@host.docker.internal:3306/workspace"
+
+            - name: SECRET_KEY
+              value: "224f56ba31aa8e0658ac03ecaff99dce3d49b3ceb9d1c6336d00b05c5b375f0a"
+
+            - name: MAIL_USERNAME
+              value: "devshree0602@gmail.com"
+
+            - name: MAIL_PASSWORD
+              value: "hkhn eqtv iqzy umgg"
+
+            - name: MAIL_FROM
+              value: "devshree0602@gmail.com"
+
+            - name: MAIL_PORT
+              value: "587"
+
+            - name: MAIL_SERVER
+              value: "smtp.gmail.com"
+
+          ports:
+            - containerPort: 8000
