@@ -23,7 +23,7 @@ def get_workspace_members(workspace_id: int,db:Session=Depends(getDb)):
 
     if not workspace_exist:
         raise HTTPException(
-            status_code=100,
+            status_code=404,
             detail="Workspace does not exist"
         )
     
