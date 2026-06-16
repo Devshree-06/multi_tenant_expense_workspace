@@ -7,8 +7,6 @@ DATABASE_URL = database_url
 
 engine = create_engine(DATABASE_URL)
 
-print("FINAL DATABASE URL =", DATABASE_URL)
-
 SessionLocal = sessionmaker(autocommit=False,autoflush=False,bind=engine)
 
 Base = declarative_base()
