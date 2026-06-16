@@ -10,10 +10,15 @@ from app.schemas.workspace_members_list import MembersData,WorkspaceMemberRespon
 from app.models.user_details_model import UserSignIn
 from app.models.workspace import Workspace
 from app.schemas.workspace_members_list import MembersData,WorkspaceMemberResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 
 def get_workspace_members(workspace_id: int,db:Session=Depends(getDb)):
+
+    logger.info("Calling the get_workspace_members method")
 
     workspace_exist = db.execute(
         select(Workspace).where(
@@ -46,6 +51,9 @@ def get_workspace_members(workspace_id: int,db:Session=Depends(getDb)):
 
         for row in result
     ]
+    
+    logger.info("Fetching the workspace member list")
+
 
     return WorkspaceMemberResponse(
         workspace_id=workspace_id,

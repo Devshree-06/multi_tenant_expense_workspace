@@ -22,6 +22,10 @@ from app.service.user_invite_service import workspace_user_invite
 from app.service.workspace_accept_invite import accept_invite
 from app.service.workspace_members_list_service import get_workspace_members
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 
 router = APIRouter(
@@ -62,6 +66,7 @@ def member_invite(invite_token:str,db:Session=Depends(getDb),user:int=Depends(ve
 
 @router.post("/{workspace_id}/get_workspace_members")
 def member_list(workspace_id: int,db:Session=Depends(getDb)):
+    logger.info("Called get_workspace_members api")
     return get_workspace_members(workspace_id,db)
 # class TestEmail(BaseModel):
 #     email: str
