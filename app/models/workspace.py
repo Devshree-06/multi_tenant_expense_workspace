@@ -8,7 +8,7 @@ class Workspace(Base):
 
     __tablename__ = "workspace_details"
     workspace_id = Column(BigInteger,primary_key=True,index=True)
-    workspace_name = Column(String)
+    workspace_name = Column(String(200))
     workspace_description = Column(String)
     created_at = Column(DateTime,default=datetime.utcnow)
     modified_at = Column(DateTime,default=datetime.utcnow)
