@@ -35,5 +35,12 @@ pipeline {
                 sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
+
+         stage('Deploy to Kubernetes') {
+            steps {
+                sh "kubectl apply -f deployment.yaml -n uat"
+                sh "kubectl apply -f service.yaml -n uat"
+                sh "kubectl rollout restart deployment multitenant-expense -n uat"
+            }
     }
 }
