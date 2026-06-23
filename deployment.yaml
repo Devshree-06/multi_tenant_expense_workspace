@@ -25,7 +25,7 @@ spec:
 
           env:
             - name: DATABASE_URL
-              value: "mysql+pymysql://root:Dev%401234@host.docker.internal:3306/workspace"
+              value: "mysql+pymysql://root:Dev%401234@mysql-service:3306/workspace"
 
             - name: SECRET_KEY
               value: "224f56ba31aa8e0658ac03ecaff99dce3d49b3ceb9d1c6336d00b05c5b375f0a"
