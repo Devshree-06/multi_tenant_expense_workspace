@@ -38,9 +38,9 @@ pipeline {
 
          stage('Deploy to Kubernetes') {
             steps {
-                sh "/usr/local/bin/kubectl apply -f deployment.yaml -n uat"
-                sh "/usr/local/bin/kubectl apply -f service.yaml -n uat"
-                sh "/usr/local/bin/kubectl rollout restart deployment multitenant-expense -n uat"
+                sh "kubectl apply -f deployment.yaml -n uat"
+                sh "kubectl apply -f service.yaml -n uat"
+                sh "kubectl rollout restart deployment multitenant-expense -n uat"
             }
         }
     }
