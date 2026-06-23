@@ -42,5 +42,6 @@ pipeline {
                 sh "kubectl apply -f service.yaml -n uat"
                 sh "kubectl rollout restart deployment multitenant-expense -n uat"
             }
+        }
     }
 }
